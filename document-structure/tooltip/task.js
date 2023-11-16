@@ -6,6 +6,17 @@ elementsHasTooltip.forEach(el => {
     tip.textContent = el.title;
     tip.className = "tooltip";
     el.append(tip);
+
+    let coordinates = tip.getBoundingClientRect();
+    let left = coordinates.left + (el.offsetWidth - tip.offsetWidth) / 2;
+    if (left < 0) left = 0;
+    let top = coordinates.top - tip.offsetHeight - 5;
+    if (top < 0) {
+        top = coordinates.top + el.offsetHeight + 5;
+    }
+
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
 });
 
 const showTip = (event) => {
@@ -15,7 +26,8 @@ const showTip = (event) => {
     event.preventDefault();
     let tip = event.currentTarget.firstElementChild;
     tip.classList.add('tooltip_active');
-    tip.setAttribute('data-position', 'top');
+
+
 };
 
 
